@@ -6,7 +6,7 @@ MØNTAN1 Academy is a free builder's primer that takes you from zero to one: how
 
 Whether you're in Charleston, Morgantown, Huntington, or Mingo County, the same AI tools used by Silicon Valley startups are available right now on any laptop. This is how we close the gap. This is how we punch above our weight class.
 
-[Live site](https://m0ntan1.github.io/m0ntan1-vibe-academy/)
+[Live site](https://m0ntan1.github.io/m0ntan1-academy/)
 
 ---
 

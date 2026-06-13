@@ -292,6 +292,11 @@ function portContent(s) {
   body = body.replace(/\b[Ww]eek (\d+)/g, 'Section $1');
   body = body.replace(/this week/gi, 'this section').replace(/next week/gi, 'next section');
   body = body.replace(/12-week/gi, 'twelve-section').replace(/12 weeks/gi, 'twelve sections');
+  // de-vibe: "vibe developer/development" is old identity language; builders now
+  body = body.replace(/montani-vibe-projects/g, 'm0ntan1-academy-projects');
+  body = body.replace(/Vibe [Dd]evelopment/g, 'Building with AI').replace(/vibe development/g, 'building with AI');
+  body = body.replace(/Vibe Developer/g, 'Builder').replace(/vibe developer's/g, "builder's");
+  body = body.replace(/vibe developers/g, 'builders').replace(/vibe developer/g, 'builder');
 
   if (s.id === 'section-12') body = remixSection12(body);
   return body;
