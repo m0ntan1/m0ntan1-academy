@@ -288,10 +288,27 @@ function portContent(s) {
   // brand pass: strip emoji, convert em/en dashes, weeks become sections
   body = body.replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu, '');
   body = body.replace(/<h2>\s+/g, '<h2>');
+  // number ranges first ("3–5 sentences", "Weeks 1–6", "$60–90k"): a range is "to", not a "::" break
+  body = body.replace(/(\d)\s*[–—]\s*(\$?\d)/g, '$1 to $2');
   body = body.replace(/\s*—\s*/g, ' :: ').replace(/\s*–\s*/g, ' :: ');
+  body = body.replace(/\b[Ww]eeks (\d+)/g, 'Sections $1');
   body = body.replace(/\b[Ww]eek (\d+)/g, 'Section $1');
   body = body.replace(/this week/gi, 'this section').replace(/next week/gi, 'next section');
   body = body.replace(/12-week/gi, 'twelve-section').replace(/12 weeks/gi, 'twelve sections');
+  // cadence wording: the primer is sections in a weekend, not a 12-week course.
+  // "last week's Airtable rows" (Section 10) is a real calendar week and is left alone.
+  body = body.replace(/\blast week(?!['’&])/gi, 'last section');
+  body = body.replace(/every single week/gi, 'in every single section');
+  body = body.replace(/\b(each|every) week/gi, '$1 section');
+  body = body.replace(/week after week/gi, 'build after build');
+  body = body.replace(/by end of week/gi, 'by the end of this section');
+  body = body.replace(/Your weekly loop/g, 'Your build loop');
+  body = body.replace(/buildable in a week\b/gi, 'buildable in a weekend');
+  body = body.replace(/Which week felt/g, 'Which section felt');
+  body = body.replace(/if you had 4 more weeks/gi, 'if you had another weekend');
+  body = body.replace(/All 12 week projects/g, 'All 12 section projects');
+  // Anthropic Console moved: console.anthropic.com now redirects to platform.claude.com
+  body = body.replace(/https:\/\/console\.anthropic\.com/g, 'https://platform.claude.com').replace(/console\.anthropic\.com/g, 'platform.claude.com');
   // de-vibe: "vibe developer/development" is old identity language; builders now
   body = body.replace(/montani-vibe-projects/g, 'm0ntan1-academy-projects');
   body = body.replace(/Vibe [Dd]evelopment/g, 'Building with AI').replace(/vibe development/g, 'building with AI');
@@ -302,27 +319,28 @@ function portContent(s) {
   return body;
 }
 
-// Section 12: communities held back as (still building); Anthropic 101 ladder added.
+// Section 12: communities held back as (still building); Claude Academy 101 ladder added.
+// Courses moved from anthropic.skilljar.com to academy.claude.com (verified 2026-09-17).
 const COURSES_HTML = `
 <div class="lesson-section" id="claude-courses">
   <div class="section-number">Continue :: Claude training</div>
   <h2>Follow along into the Claude courses</h2>
-  <p>Anthropic runs its own free, self-paced academy with official certificates. These three pick up exactly where this primer leaves off. Free, email signup only.</p>
+  <p>Anthropic runs Claude Academy, its own free, self-paced school with official certificates. These three pick up exactly where this primer leaves off. All three are free to take. Claude 101 runs on the free Claude plan; Claude Code 101 needs a paid Claude plan or an API key, and Platform 101 needs an API key.</p>
   <div class="courses">
-    <a class="course" href="https://anthropic.skilljar.com/claude-101" target="_blank" rel="noopener">
-      <span class="ck">Anthropic Academy :: 01</span>
+    <a class="course" href="https://academy.claude.com/courses/claude-101" target="_blank" rel="noopener">
+      <span class="ck">Claude Academy :: 01</span>
       <h3>Claude 101</h3>
       <p>Everyday work with Claude: core features, projects, and the habits that compound. The natural next step after this primer.</p>
       <span class="go">Start the course &rarr;</span>
     </a>
-    <a class="course" href="https://anthropic.skilljar.com/claude-code-101" target="_blank" rel="noopener">
-      <span class="ck">Anthropic Academy :: 02</span>
+    <a class="course" href="https://academy.claude.com/courses/claude-code-101" target="_blank" rel="noopener">
+      <span class="ck">Claude Academy :: 02</span>
       <h3>Claude Code 101</h3>
       <p>The co-pilot moves into your terminal. Daily development workflow with Claude Code, from first command to real projects.</p>
       <span class="go">Start the course &rarr;</span>
     </a>
-    <a class="course" href="https://anthropic.skilljar.com/claude-platform-101" target="_blank" rel="noopener">
-      <span class="ck">Anthropic Academy :: 03</span>
+    <a class="course" href="https://academy.claude.com/courses/claude-platform-101" target="_blank" rel="noopener">
+      <span class="ck">Claude Academy :: 03</span>
       <h3>Claude Platform 101</h3>
       <p>Build on the Claude Developer Platform: the API fundamentals behind everything you shipped in Sections 07 and 08.</p>
       <span class="go">Start the course &rarr;</span>
@@ -429,7 +447,7 @@ function page(s) {
 
   <section class="lesson-head">
     <div class="eyebrow">[ SECTION ${s.num} :: ${esc(s.part)} ]</div>
-    <h1>${esc(s.title)}<span class="red">.</span></h1>
+    <h1>${esc(s.title)}${/[?!.]$/.test(s.title) ? '' : '<span class="red">.</span>'}</h1>
     <p class="intro">${esc(s.intro)}</p>
     <div class="lesson-meta">
       <span><b>Time</b> ${s.time}</span>

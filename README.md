@@ -43,7 +43,7 @@ Issuer tool: open `certificate.html?name=Jane%20Doe&date=June%2014%2C%202026` (o
 
 ## After the Primer
 
-Section 12 hands graduates to Anthropic Academy's free certified courses: Claude 101, Claude Code 101, and Claude Platform 101 (anthropic.skilljar.com). The communities list is still building until there are rooms we would send a neighbor to.
+Section 12 hands graduates to Claude Academy's free certified courses: Claude 101, Claude Code 101, and Claude Platform 101 (academy.claude.com; formerly anthropic.skilljar.com). The communities list is still building until there are rooms we would send a neighbor to.
 
 ---
 

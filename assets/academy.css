@@ -8,6 +8,20 @@
   --hair: #d4d0c5;
   --red: #e00000;
   --teal: #4B737A;
+
+  /* Legacy aliases: lesson bodies ported from weeks/ carry inline styles written
+     for the old gold theme. Map those names onto this palette so they resolve. */
+  --text: var(--ink);
+  --muted: var(--dim);
+  --border: var(--hair);
+  --surface: #ebe7dd;
+  --gold-light: var(--red);
+  --blue: var(--teal);
+  --blue-light: var(--teal);
+  --steel: var(--teal);
+  --steel-light: var(--teal);
+  --green: var(--teal);
+  --green-light: var(--teal);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -455,4 +469,14 @@ footer a:hover { color: var(--red); }
   .pl-arrow { transform: rotate(90deg); align-self: center; }
   .pf-grid { grid-template-columns: 1fr 1fr; }
   .ex-mid { flex-direction: row; }
+}
+
+/* ── ported-lesson hygiene (2026-09) ─────────────────────────
+   Lesson bodies come from weeks/ with inline styles written for the old
+   dark theme. These rules keep them inside this design system. */
+code, pre, kbd, samp { font-family: inherit; }   /* browser default 'monospace' broke the Plex Mono-only rule */
+.lesson-section [style*="font-family"] { font-family: inherit !important; }   /* Syne / Fira Code were never loaded: Plex Mono only */
+.lesson-section [style*="color:#86efac"] { color: var(--teal) !important; }   /* dark-theme syntax green, unreadable on paper */
+@media (max-width: 640px) {
+  .lesson-section [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }  /* two-up cards overflowed phones */
 }
