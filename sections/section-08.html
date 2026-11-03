@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/academy.css">
 </head>
 <body>
@@ -37,7 +38,7 @@
     <div class="lesson-meta">
       <span><b>Time</b> ~75 min</span>
       <span><b>Tools</b> Replit, Claude API</span>
-      <span><b>Cost</b> $0</span>
+      <span><b>Cost</b> API credits, pay as you go</span>
     </div>
   </section>
 
@@ -85,7 +86,8 @@
   <div class="callout callout-tool">
     <span class="callout-icon"></span>
     <div class="callout-body"><div class="callout-label">Getting your Claude API key</div>
-    <p>Go to <a href="https://platform.claude.com" target="_blank" style="color:var(--gold-light)">platform.claude.com</a> → create account → API Keys → Create Key. Copy it somewhere safe. This is different from your claude.ai login :: it's specifically for calling Claude from code.</p></div>
+    <p>Go to <a href="https://platform.claude.com" target="_blank" style="color:var(--gold-light)">platform.claude.com</a> → create account → API Keys → Create Key. Copy it somewhere safe. This is different from your claude.ai login :: it's specifically for calling Claude from code.</p>
+    <p><strong>Treat the key like a password.</strong> Never paste it into a chat (including Claude), a screenshot, or a file you push to GitHub. The API is pay-as-you-go: add a small amount of credit, then set a monthly spend limit in the Console's billing settings so a bug can never run up a bill. This is the one section of the primer that is not $0.</p></div>
   </div>
 </div>
 
@@ -96,11 +98,11 @@
   <div class="callout callout-note">
     <span class="callout-icon"></span>
     <div class="callout-body"><div class="callout-label">Use Replit this section</div>
-    <p>AI API calls need to happen server-side to keep your key safe. Open <a href="https://replit.com" target="_blank" style="color:var(--gold-light)">replit.com</a> (you set this up in Setup Day) → New Repl → Node.js. This gives you a free server environment in your browser.</p></div>
+    <p>AI API calls need to happen server-side to keep your key safe. Open <a href="https://replit.com" target="_blank" style="color:var(--gold-light)">replit.com</a> (you set this up in Section 00) → New Repl → Node.js. This gives you a free server environment in your browser.</p></div>
   </div>
   <div class="prompt-box">
     <p>Build me a chatbot app using the Anthropic Claude API in Replit (Node.js).
-My API key: [YOUR KEY :: store it as a Replit secret called ANTHROPIC_KEY]
+My API key is already stored as a Replit secret named ANTHROPIC_API_KEY. (Do not ask me for the key, and never print it.)
 The chatbot should have this personality: [describe your bot :: e.g., "a sarcastic movie critic"]
 System prompt: [describe the bot's rules and personality in detail]
 Build: a clean chat UI (HTML/CSS), a Node.js server that calls the Claude API, message history so context is maintained.
@@ -139,14 +141,14 @@ Make it specific enough that the AI has a clear, consistent character.</p>
   <h2>Environment Variables: Keeping Keys Safe</h2>
   <p>Replit has a "Secrets" feature :: environment variables that your code can read but that don't appear in your code files. This is how you keep API keys private.</p>
   <div class="steps">
-    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>In Replit: open the Secrets panel</h4><p>Click the  padlock icon in the left sidebar. This is your encrypted secrets store.</p></div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Add your API key as a secret</h4><p>Key: <code>ANTHROPIC_KEY</code> · Value: your actual API key. Click "Add new secret."</p></div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Access it in code with <code>process.env</code></h4><p><code>const key = process.env.ANTHROPIC_KEY</code> :: reads the secret without it ever appearing in your code. Safe to share the code now.</p></div></div>
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>In Replit: open the Secrets panel</h4><p>Find Secrets in Replit's Tools list (or search for "Secrets"). This is your encrypted secrets store.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Add your API key as a secret</h4><p>Key: <code>ANTHROPIC_API_KEY</code> · Value: your actual API key. Use exactly that name: it is the one the official Anthropic SDK looks for automatically.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Access it in code with <code>process.env</code></h4><p><code>const key = process.env.ANTHROPIC_API_KEY</code> :: reads the secret without it ever appearing in your code. Safe to share the code now.</p></div></div>
   </div>
 </div>
 
 <div class="lesson-section" id="project">
-  <div class="section-number"> Section 8 Project</div>
+  <div class="section-number"> Section 08 Project</div>
   <h2>Your Custom AI Chatbot :: Live &amp; Shareable</h2>
   <div class="exercise">
     <div class="exercise-label">Build This</div>
@@ -157,7 +159,7 @@ Make it specific enough that the AI has a clear, consistent character.</p>
       <li>A <strong>chat interface</strong> that looks polished</li>
       <li>Maintains <strong>conversation history</strong> (context across messages)</li>
       <li>API key stored safely in <strong>Replit Secrets</strong></li>
-      <li>The Replit URL is live and <strong>shareable with anyone</strong></li>
+      <li>The Replit URL is live and <strong>shareable with anyone</strong> (Replit's free Starter plan includes one published app, which expires after 30 days; re-publish it to keep it up)</li>
     </ul>
   </div>
 </div>

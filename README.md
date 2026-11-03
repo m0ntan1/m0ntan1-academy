@@ -37,9 +37,11 @@ This curriculum is and will always be free for West Virginians. It's a resource,
 
 ## Certificate
 
-Finish all twelve sections and the claim panel on Section 12 unlocks: enter your name and email and the request goes to the desk. Certificates are made out by hand and mailed back, signed and checked.
+Self-issued, on the honor system. Finish all twelve sections and the panel on Section 12 unlocks: type your name and your certificate is issued on the spot, ready to print or save as a PDF (letter landscape). No application, no mail desk, no gatekeeper. The builder signs their own certificate.
 
-Issuer tool: open `certificate.html?name=Jane%20Doe&date=June%2014%2C%202026` (or use the black bar at the top of that page), then print to PDF. Letter landscape, ready to send.
+There is deliberately no server, registry, or tracking. Progress lives in the learner's browser (`localStorage`), and the date the twelfth section was first marked complete is kept so reprints keep their original date. The document number is a fingerprint of name + date: the same inputs always give the same number, but it is not a lookup in any database. The proof is the work the builder shipped.
+
+Direct link format: `certificate.html?name=Jane%20Doe&date=2026-06-14` (ISO dates are formatted for print).
 
 ## After the Primer
 
@@ -52,8 +54,10 @@ Section 12 hands graduates to Claude Academy's free certified courses: Claude 10
 - `index.html`: home and curriculum index
 - `setup.html`: Section 00
 - `sections/section-01.html` through `section-12.html`: one page per lesson, full content ported from the legacy weeks
-- `certificate.html`: print-ready certificate issuer (not linked publicly)
-- `assets/academy.css` / `assets/academy.js`: shared design system, progress tracking, certificate claim
+- `certificate.html`: the self-issued certificate (Section 12 sends graduates here at 12/12)
+- `assets/academy.css` / `assets/academy.js`: shared design system, progress tracking, certificate unlock
+- `404.html`: custom not-found page
+- `_config.yml`: tells GitHub Pages not to publish build inputs (`weeks/`, `projects/`, `tools/`, `lib/`, the generator, this README)
 - `build-sections.mjs`: generator; section metadata lives here and lesson bodies are ported from `weeks/` at build time. Edit, then `node build-sections.mjs` to regenerate.
 - `weeks/`: legacy 12-week pages, the canonical content source for the port (includes `week0-setup.html`, the original setup page)
 

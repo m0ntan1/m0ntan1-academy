@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/academy.css">
 </head>
 <body>
@@ -86,7 +87,7 @@ Keep it under 100 words. Sound genuinely reflective, not like a resume bullet.</
 </div>
 
 <div class="lesson-section" id="communities">
-  <div class="section-number">Communities</div>
+  <div class="section-number">Lesson 2 of 4</div>
   <h2>Communities to Join</h2>
   <div class="still-building">
     <b>[ Still building ]</b>
@@ -144,7 +145,7 @@ Keep it under 100 words. Sound genuinely reflective, not like a resume bullet.</
 
 <div class="lesson-section" id="l4">
   <div class="section-number">Lesson 4 of 4</div>
-  <h2>The twelve-section Retrospective</h2>
+  <h2>The Twelve-Section Retrospective</h2>
   <p>Before you close this curriculum and move on, spend 20 minutes reflecting. Not as a formality :: as a real inventory of how much you've grown.</p>
   <div class="exercise">
     <div class="exercise-label">Reflection Exercise</div>
@@ -162,7 +163,7 @@ Keep it under 100 words. Sound genuinely reflective, not like a resume bullet.</
 
 <div class="lesson-section" id="project">
   <div class="section-number"> Section 12 Project</div>
-  <h2>Your twelve-section Portfolio</h2>
+  <h2>Your Twelve-Section Portfolio</h2>
   <div class="exercise">
     <div class="exercise-label">Build This</div>
     <h3>A polished portfolio page showcasing everything you built</h3>
@@ -181,22 +182,10 @@ Here are my projects: [list each section's project]
 Here are my tools: VS Code, HTML/CSS/JavaScript, Claude AI, Netlify, GitHub, Airtable, Make.com, OpenWeather API, Anthropic API, Webflow, Replit.
 Bio: [write a few sentences about yourself post-curriculum]
 Make it something I'd be proud to show employers or collaborators.
-Dark theme, modern design. Use Claude API model claude-sonnet-5 for any AI features if I want them.</p>
+Dark theme, modern design. Use Claude API model claude-sonnet-5-5 for any AI features if I want them.</p>
   </div>
 </div>
 
-
-  <div class="claim" id="claim">
-    <h3>Certificate of completion</h3>
-    <h2>Claim your certificate.</h2>
-    <p>Finish all twelve sections, then enter your name and email. We will make out your MØNTAN1 Academy certificate and mail it to you, signed and checked.</p>
-    <form id="claim-form">
-      <input type="text" id="claim-name" placeholder="Your name, as it should appear" required>
-      <input type="email" id="claim-email" placeholder="you@example.com" required>
-      <button class="btn red" type="submit" id="claim-btn">Request certificate</button>
-    </form>
-    <div class="locked-note">Unlocks when all 12 sections are marked complete</div>
-  </div>
 
   <div class="finish">
     <button class="btn red" data-complete="section-12">Mark section complete</button>
@@ -204,6 +193,19 @@ Dark theme, modern design. Use Claude API model claude-sonnet-5 for any AI featu
         <a class="btn ghost" href="section-11.html">&larr; Section 11</a>
         <a class="btn ghost" href="../index.html">Back to curriculum &rarr;</a>
     </div>
+  </div>
+
+  <div class="claim" id="claim">
+    <h3>Certificate of completion</h3>
+    <h2>Issue your own certificate.</h2>
+    <p>No application, no tuition, no gatekeeper. Mark all twelve sections complete, type your name the way it should appear, and your MØNTAN1 Academy certificate is issued on the spot. Print it, save it as a PDF, sign it yourself.</p>
+    <p class="honor">It runs on the honor system. Your progress lives in your own browser and nobody checks it but you. The real proof is the work you shipped, so put the certificate next to your portfolio and let the builds speak.</p>
+    <form id="claim-form" data-cert="../certificate.html">
+      <label for="claim-name">Name on the certificate</label>
+      <input type="text" id="claim-name" autocomplete="name" maxlength="80" placeholder="Your name, as it should appear" required>
+      <button class="btn red" type="submit" id="claim-btn">Issue my certificate</button>
+    </form>
+    <div class="locked-note" id="claim-status">Unlocks when all 12 sections are marked complete</div>
   </div>
 
   <footer>

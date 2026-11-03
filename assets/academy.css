@@ -188,7 +188,8 @@ footer a:hover { color: var(--red); }
 
 @media (max-width: 820px) {
   .wrap { padding: 0 20px; }
-  .top nav { display: none; }
+  .top { flex-wrap: wrap; row-gap: 14px; }
+  .top nav { order: 3; width: 100%; gap: 22px; font-size: 10px; }
   .block { grid-template-columns: 1fr; gap: 12px; }
   .section-row { grid-template-columns: 56px 1fr; }
   .section-row .desc, .section-row .st { grid-column: 2; text-align: left; }
@@ -318,6 +319,9 @@ footer a:hover { color: var(--red); }
   padding: 13px 16px; min-width: 220px;
 }
 .claim input:focus { outline: 2px solid var(--teal); }
+.claim label { width: 100%; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); }
+.claim input { flex: 1 1 260px; }
+.claim .honor { font-size: 12px; border-left: 2px solid var(--teal); padding-left: 12px; }
 .claim .locked-note { margin-top: 12px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--red); }
 .claim.unlocked .locked-note { display: none; }
 .claim button[disabled] { opacity: .45; cursor: not-allowed; }
@@ -480,3 +484,8 @@ code, pre, kbd, samp { font-family: inherit; }   /* browser default 'monospace' 
 @media (max-width: 640px) {
   .lesson-section [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }  /* two-up cards overflowed phones */
 }
+
+/* legacy tinted cards (purple / cyan / amber on the old dark theme) and their
+   rounded corners: pulled onto the paper palette */
+.lesson-section [style*="background:rgba("] { background: rgba(75,115,122,.07) !important; border-color: rgba(10,10,10,.18) !important; }
+.lesson-section [style*="border-radius:1"] { border-radius: 0 !important; }

@@ -5,12 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MØNTAN1 Academy :: Certificate of Completion</title>
 <meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
 <style>
-  /* Issuer tool: open with ?name=Jane%20Doe&date=2026-06-14 (or use the bar
-     below), then print to PDF. Letter landscape. */
+  /* Self-issued certificate. Section 12 sends graduates here as
+     certificate.html?name=Jane%20Doe&date=2026-06-14 (ISO dates are
+     formatted for print; "June 14, 2026" also works). No server, no
+     registry, no gatekeeper: the honor system, stated on the document.
+     Letter landscape; print or save as PDF. */
   :root {
     --paper: #f2efe8;
     --ink: #0a0a0a;
@@ -29,18 +33,20 @@
     print-color-adjust: exact;
   }
 
-  /* issuer controls, never printed */
+  /* controls, never printed */
   .controls {
     display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
     padding: 14px 20px;
     background: var(--ink); color: var(--paper);
     font-size: 12px;
   }
+  .controls a.home { color: var(--paper); text-decoration: none; font-weight: 700; letter-spacing: .16em; margin-right: 8px; }
+  .controls a.home .o { color: var(--red); }
   .controls label { letter-spacing: .12em; text-transform: uppercase; font-size: 10px; }
   .controls input {
     font-family: inherit; font-size: 13px;
     padding: 8px 12px; border: 1px solid #444; background: #111; color: var(--paper);
-    min-width: 240px;
+    min-width: 200px; flex: 1 1 200px; max-width: 320px;
   }
   .controls button {
     font-family: inherit; font-size: 11px; font-weight: 600;
@@ -48,7 +54,9 @@
     background: var(--red); color: #fff; border: none; cursor: pointer;
     padding: 10px 20px;
   }
+  .controls button.ghost { background: transparent; border: 1px solid #555; }
   .controls button:hover { background: var(--paper); color: var(--ink); }
+  .hint { width: 100%; font-size: 11px; color: #a9a497; }
 
   .sheet {
     width: 11in; height: 8.5in;
@@ -85,7 +93,7 @@
   .mark { font-size: 24px; font-weight: 700; letter-spacing: .2em; }
   .mark .o { color: var(--red); }
   .mark small { font-weight: 400; font-size: 12px; letter-spacing: .26em; color: var(--dim); margin-left: 12px; }
-  .doc-no { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
+  .doc-no { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); text-align: right; line-height: 1.7; }
   .doc-no b { color: var(--red); font-weight: 400; }
 
   .title {
@@ -101,20 +109,21 @@
     border-bottom: 2px solid var(--ink);
     padding-bottom: 0.12in;
     min-height: 1.2em;
+    overflow-wrap: anywhere;
   }
   .body-line { margin-top: 0.22in; font-size: 14px; line-height: 1.8; color: var(--ink); max-width: 8.2in; }
   .body-line b { color: var(--red); font-weight: 700; }
   .meta-row {
     margin-top: 0.18in;
-    display: flex; gap: 0.6in;
-    font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--dim);
+    display: flex; gap: 0.4in; flex-wrap: wrap;
+    font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--dim);
   }
   .meta-row b { color: var(--ink); font-weight: 600; display: block; margin-top: 4px; letter-spacing: .12em; }
 
   .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; }
   .sig { width: 2.9in; }
+  .sig .nm { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--ink); margin-bottom: 6px; min-height: 1.4em; }
   .sig .line { border-top: 1.5px solid var(--ink); padding-top: 8px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); }
-  .sig .nm { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--ink); margin-bottom: 6px; font-style: italic; }
 
   .seal {
     width: 1.55in; height: 1.55in;
@@ -124,15 +133,16 @@
     color: var(--red);
     text-align: center;
     transform: rotate(-8deg);
+    padding: 0 0.12in;
   }
-  .seal .big { font-size: 44px; font-weight: 700; line-height: 1; }
-  .seal .sm { font-size: 7.5px; letter-spacing: .3em; text-transform: uppercase; margin-top: 6px; }
-  .seal .sm2 { font-size: 7px; letter-spacing: .22em; text-transform: uppercase; opacity: .85; }
+  .seal .big { font-size: 40px; font-weight: 700; line-height: 1; }
+  .seal .sm { font-size: 7px; letter-spacing: .2em; text-transform: uppercase; margin-top: 7px; }
+  .seal .sm2 { font-size: 6.5px; letter-spacing: .12em; text-transform: uppercase; opacity: .85; margin-top: 2px; }
 
   @media print {
     body { background: var(--paper); }
     .controls { display: none; }
-    .sheet { margin: 0; box-shadow: none; width: 100%; height: 100vh; }
+    .sheet { margin: 0; box-shadow: none; width: 100%; height: 100vh; zoom: 1 !important; }
   }
   @page { size: letter landscape; margin: 0; }
 </style>
@@ -140,21 +150,24 @@
 <body>
 
 <div class="controls">
-  <label>Name</label>
-  <input type="text" id="c-name" placeholder="Recipient name">
-  <label>Date</label>
+  <a class="home" href="index.html">M<span class="o">Ø</span>NTAN1</a>
+  <label for="c-name">Name</label>
+  <input type="text" id="c-name" maxlength="80" autocomplete="name" placeholder="Your name">
+  <label for="c-date">Date</label>
   <input type="text" id="c-date" placeholder="June 14, 2026">
-  <button onclick="apply()">Apply</button>
-  <button onclick="window.print()">Print / PDF</button>
+  <button type="button" id="apply">Update</button>
+  <button type="button" id="print">Print / Save PDF</button>
+  <button type="button" class="ghost" id="copy">Copy link</button>
+  <div class="hint">Self-issued, honor system. Print it, sign it, and pin it next to the work you shipped. Tip: choose "Save as PDF", landscape, and turn headers and footers off.</div>
 </div>
 
-<div class="sheet">
+<div class="sheet" id="sheet">
   <div class="frame">
     <pre class="grain" id="grain" aria-hidden="true"></pre>
 
     <div class="masthead">
       <div class="mark">M<span class="o">Ø</span>NTAN1<small>ACADEMY</small></div>
-      <div class="doc-no"><b>M1A-CERT</b> :: Morgantown, West Virginia</div>
+      <div class="doc-no"><b>M1A-CERT</b> :: No. <span id="docno">----</span><br>Morgantown, West Virginia</div>
     </div>
 
     <div class="title">Certificate of Completion</div>
@@ -169,14 +182,15 @@
 
     <div class="meta-row">
       <span>Date of completion<b id="date">&nbsp;</b></span>
-      <span>Curriculum<b>12 sections + setup :: all builds shipped</b></span>
+      <span>Curriculum<b>12 sections + setup</b></span>
+      <span>Issued<b>Self-issued :: honor system</b></span>
       <span>Tuition<b>$0 :: free forever</b></span>
     </div>
 
     <div class="foot">
       <div class="sig">
-        <div class="nm">B0SEPHUS G. ALTAMONT</div>
-        <div class="line">Drawn :: Managing Director</div>
+        <div class="nm">&nbsp;</div>
+        <div class="line">Signed :: the builder</div>
       </div>
       <div class="seal">
         <div class="big">Ø&rarr;1</div>
@@ -184,8 +198,8 @@
         <div class="sm2">Off zero :: in a weekend</div>
       </div>
       <div class="sig">
-        <div class="nm">MERCER LANG</div>
-        <div class="line">Checked :: Compliance &amp; Audit</div>
+        <div class="nm">MØNTAN1 ACADEMY</div>
+        <div class="line">Issuer :: no gatekeeper</div>
       </div>
     </div>
   </div>
@@ -195,22 +209,80 @@
   const params = new URLSearchParams(location.search);
   const nameEl = document.getElementById('name');
   const dateEl = document.getElementById('date');
+  const docEl = document.getElementById('docno');
   const nIn = document.getElementById('c-name');
   const dIn = document.getElementById('c-date');
 
-  function fmtToday() {
-    return new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  function fmtDate(d) {
+    if (!d) d = (() => { const t = new Date(); return t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0'); })();
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d);
+    if (!m) return d;   // already human-readable
+    return new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+  // Document number: a fingerprint of name + date. The same name and date
+  // always give the same number, so a reprint matches the original. It is not
+  // a registry entry; nothing is stored anywhere.
+  function docNo(n, d) {
+    let h1 = 0x811c9dc5, h2 = 0x01000193;
+    const s = n.toLowerCase() + '|' + d;
+    for (let i = 0; i < s.length; i++) {
+      const c = s.charCodeAt(i);
+      h1 = Math.imul(h1 ^ c, 16777619) >>> 0;
+      h2 = Math.imul(h2 ^ c, 2246822519) >>> 0;
+    }
+    const a = (h1 % 10000).toString().padStart(4, '0'), b = (h2 % 10000).toString().padStart(4, '0');
+    return n ? a + '-' + b : '----';
+  }
+  // Shrink long names so they never push the body into the seal.
+  function fitName() {
+    let size = 52;
+    nameEl.style.fontSize = size + 'px';
+    const lineH = () => parseFloat(getComputedStyle(nameEl).fontSize) * 1.05;
+    while (size > 26 && nameEl.scrollHeight > lineH() * 2 + 14) {
+      size -= 2;
+      nameEl.style.fontSize = size + 'px';
+    }
   }
   function setCert(n, d) {
+    const date = fmtDate(d);
     nameEl.textContent = n || ' ';
-    dateEl.textContent = d || fmtToday();
-    document.title = 'M0NTAN1 Academy Certificate :: ' + (n || 'unnamed');
+    dateEl.textContent = date;
+    docEl.textContent = docNo(n, date);
+    document.title = 'MØNTAN1 Academy Certificate :: ' + (n || 'unnamed');
+    fitName();
   }
-  function apply() { setCert(nIn.value.trim(), dIn.value.trim()); }
+  function apply() {
+    const n = nIn.value.trim().replace(/\s+/g, ' '), d = dIn.value.trim();
+    setCert(n, d);
+    const q = new URLSearchParams();
+    if (n) q.set('name', n);
+    if (d) q.set('date', d);
+    history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : ''));
+  }
+
+  document.getElementById('apply').addEventListener('click', apply);
+  [nIn, dIn].forEach(i => i.addEventListener('keydown', e => { if (e.key === 'Enter') apply(); }));
+  document.getElementById('print').addEventListener('click', () => { apply(); window.print(); });
+  document.getElementById('copy').addEventListener('click', async (e) => {
+    apply();
+    try { await navigator.clipboard.writeText(location.href); e.target.textContent = 'Link copied'; }
+    catch (err) { prompt('Copy this link:', location.href); }
+  });
 
   nIn.value = params.get('name') || '';
   dIn.value = params.get('date') || '';
-  setCert(nIn.value, dIn.value);
+  setCert(nIn.value.trim(), dIn.value.trim());
+  document.fonts && document.fonts.ready.then(fitName);
+
+  // On screens narrower than the sheet, scale it to fit (print is unaffected).
+  const sheet = document.getElementById('sheet');
+  function fitSheet() {
+    sheet.style.zoom = '';
+    const z = Math.min(1, (document.documentElement.clientWidth - 16) / sheet.offsetWidth);
+    if (z < 1) sheet.style.zoom = z.toFixed(3);
+  }
+  fitSheet();
+  window.addEventListener('resize', fitSheet);
 
   // grain, same seed discipline as the site
   (function () {
