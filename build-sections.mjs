@@ -175,6 +175,7 @@ const SECTIONS = [
   {
     id: 'section-08', file: 'sections/section-08.html', num: '08', part: 'PART II :: BUILD THINGS',
     title: 'Build an App with AI Features', time: '~75 min', tools: 'Replit, Claude API',
+    cost: 'API credits, pay as you go',
     legacy: 'weeks/week8.html',
     intro: 'The section where it stops being a website and starts being a product: wire a chat interface to an AI API and give it a personality.',
     objectives: [
@@ -291,10 +292,12 @@ function portContent(s) {
   // number ranges first ("3–5 sentences", "Weeks 1–6", "$60–90k"): a range is "to", not a "::" break
   body = body.replace(/(\d)\s*[–—]\s*(\$?\d)/g, '$1 to $2');
   body = body.replace(/\s*—\s*/g, ' :: ').replace(/\s*–\s*/g, ' :: ');
-  body = body.replace(/\b[Ww]eeks (\d+)/g, 'Sections $1');
-  body = body.replace(/\b[Ww]eek (\d+)/g, 'Section $1');
+  const pad = n => String(n).padStart(2, '0');
+  body = body.replace(/\b[Ww]eek(s?) (\d+) to (\d+)/g, (m, pl, a, b) => `Section${pl} ${pad(a)} to ${pad(b)}`);
+  body = body.replace(/\b[Ww]eeks (\d+)/g, (m, a) => `Sections ${pad(a)}`);
+  body = body.replace(/\b[Ww]eek (\d+)/g, (m, a) => `Section ${pad(a)}`);
   body = body.replace(/this week/gi, 'this section').replace(/next week/gi, 'next section');
-  body = body.replace(/12-week/gi, 'twelve-section').replace(/12 weeks/gi, 'twelve sections');
+  body = body.replace(/12-Week/g, 'Twelve-Section').replace(/12-week/gi, 'twelve-section').replace(/12 weeks/gi, 'twelve sections');
   // cadence wording: the primer is sections in a weekend, not a 12-week course.
   // "last week's Airtable rows" (Section 10) is a real calendar week and is left alone.
   body = body.replace(/\blast week(?!['’&])/gi, 'last section');
@@ -305,6 +308,7 @@ function portContent(s) {
   body = body.replace(/Your weekly loop/g, 'Your build loop');
   body = body.replace(/buildable in a week\b/gi, 'buildable in a weekend');
   body = body.replace(/Which week felt/g, 'Which section felt');
+  body = body.replace(/\bin Setup Day\b/g, 'in Section 00').replace(/Setup Day/g, 'Setup');
   body = body.replace(/if you had 4 more weeks/gi, 'if you had another weekend');
   body = body.replace(/All 12 week projects/g, 'All 12 section projects');
   // Anthropic Console moved: console.anthropic.com now redirects to platform.claude.com
@@ -358,7 +362,7 @@ function remixSection12(body) {
   const secStart = body.lastIndexOf('<div class="lesson-section"', h2);
   const secEnd = body.indexOf('<div class="lesson-section"', h2);
   const replacement = `<div class="lesson-section" id="communities">
-  <div class="section-number">Communities</div>
+  <div class="section-number">Lesson 2 of 4</div>
   <h2>Communities to Join</h2>
   <div class="still-building">
     <b>[ Still building ]</b>
@@ -371,20 +375,22 @@ function remixSection12(body) {
   return body.slice(0, secStart) + replacement + COURSES_HTML + '\n' + body.slice(secEnd);
 }
 
-// Certificate claim panel (section 12 only). Static-site friendly: the form
-// composes an email to the desk. TODO: swap the mailto for a Formspree or
-// Netlify Forms endpoint when one is set up.
-const CLAIM_HTML = `
+// Certificate (section 12 only). Self-issued: no application, no mail desk,
+// no gatekeeper. At 12/12 the learner types their name and certificate.html
+// renders it on the spot. Honor system by design: progress lives in the
+// learner's own browser and the proof is the work they shipped.
+const claimHtml = base => `
   <div class="claim" id="claim">
     <h3>Certificate of completion</h3>
-    <h2>Claim your certificate.</h2>
-    <p>Finish all twelve sections, then enter your name and email. We will make out your MØNTAN1 Academy certificate and mail it to you, signed and checked.</p>
-    <form id="claim-form">
-      <input type="text" id="claim-name" placeholder="Your name, as it should appear" required>
-      <input type="email" id="claim-email" placeholder="you@example.com" required>
-      <button class="btn red" type="submit" id="claim-btn">Request certificate</button>
+    <h2>Issue your own certificate.</h2>
+    <p>No application, no tuition, no gatekeeper. Mark all twelve sections complete, type your name the way it should appear, and your MØNTAN1 Academy certificate is issued on the spot. Print it, save it as a PDF, sign it yourself.</p>
+    <p class="honor">It runs on the honor system. Your progress lives in your own browser and nobody checks it but you. The real proof is the work you shipped, so put the certificate next to your portfolio and let the builds speak.</p>
+    <form id="claim-form" data-cert="${base}certificate.html">
+      <label for="claim-name">Name on the certificate</label>
+      <input type="text" id="claim-name" autocomplete="name" maxlength="80" placeholder="Your name, as it should appear" required>
+      <button class="btn red" type="submit" id="claim-btn">Issue my certificate</button>
     </form>
-    <div class="locked-note">Unlocks when all 12 sections are marked complete</div>
+    <div class="locked-note" id="claim-status">Unlocks when all 12 sections are marked complete</div>
   </div>
 `;
 
@@ -411,7 +417,7 @@ function page(s) {
     <p>${esc(s.build[1])}</p>
   </div>`;
   const bodyCore = ported !== null ? ported : outline + '\n\n' + buildBox;
-  const extras = s.id === 'section-12' ? CLAIM_HTML : '';
+  const extras = s.id === 'section-12' ? claimHtml(base) : '';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -431,6 +437,7 @@ function page(s) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="${base}assets/academy.css">
 </head>
 <body>
@@ -452,7 +459,7 @@ function page(s) {
     <div class="lesson-meta">
       <span><b>Time</b> ${s.time}</span>
       <span><b>Tools</b> ${esc(s.tools)}</span>
-      <span><b>Cost</b> $0</span>
+      <span><b>Cost</b> ${s.cost || '$0'}</span>
     </div>
   </section>
 
@@ -467,14 +474,14 @@ ${s.objectives.map(o => `      <li>${esc(o)}</li>`).join('\n')}
 ${keyVisual(s.id)}
   <!-- Lesson body ported at build time from ${s.legacy} -->
 ${bodyCore}
-${extras}
+
   <div class="finish">
     <button class="btn red" data-complete="${s.id}">Mark section complete</button>
     <div class="pager">
         ${pager}
     </div>
   </div>
-
+${extras}
   <footer>
     <span>&copy; 2026 MØNTAN1 Academy :: Free forever</span>
     <span>Drawn: B0SEPHUS G. ALTAMONT :: Checked: MERCER LANG</span>

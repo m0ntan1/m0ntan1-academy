@@ -1,0 +1,11 @@
+# GitHub Pages (Jekyll) build settings.
+# Pages serves every file in the repo by default. These are build inputs,
+# legacy sources and internal tools, not part of the public site; they stay
+# in the repo (build-sections.mjs reads weeks/ locally) but are not published.
+exclude:
+  - weeks/
+  - projects/
+  - tools/
+  - lib/
+  - build-sections.mjs
+  - README.md
